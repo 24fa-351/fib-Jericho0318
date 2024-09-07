@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int get_fib(int n)
+int get_fib(unsigned int n)
 {
     if (n == 0) {return 0;}
     if (n == 1) {return 1;}
@@ -9,7 +9,8 @@ int get_fib(int n)
 }
 
 int main(int argc, char *argv[]){
-   int result = get_fib(atoi(argv[1]) + 2);
-   printf("%d\n", result);
+   unsigned int num;
+   sscanf(argv[1], "%u", &num);
+   printf("%u\n", get_fib(num + 2));
    return 0;
 }
