@@ -26,7 +26,7 @@ uint64_t iter_fib(uint64_t n)
 
 int main(int argc, char *argv[]){
     if (argc != 4) {
-        perror("Provide 4 arguments: ./<filename> <num> <i/r> <filename.txt>\n");
+        perror("Provide 4 arguments: ./<filename> <num> <i or r> <filename.txt>\n");
         exit(1);
     }
 
