@@ -43,7 +43,6 @@ int main(int argc, char *argv[]){
 
     fscanf(file, "%ld", &file_num);
     uint64_t sum_of_N = get_num + file_num;
-    uint64_t get_file_num = (uint64_t)fgets(line, sizeof(line), file);
 
     if (!strcmp(argv[2], "i")) {
         printf("%lu\n", iter_fib(sum_of_N - 2));
