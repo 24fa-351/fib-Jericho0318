@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
-unsigned long long int recur_fib(unsigned long long int n)
+uint64_t recur_fib(uint64_t n)
 {
     if (n == 0) {return 0;}
     if (n == 1) {return 1;}
     return recur_fib(n - 1) + recur_fib(n - 2);
 }
 
-unsigned long long int iter_fib(unsigned long long int n)
+uint64_t iter_fib(uint64_t n)
 {
-    unsigned long long int first = 0, second = 1, sum = 0;
+    uint64_t first = 0, second = 1, sum = 0;
     if (n == 0) {return 0;}
     if (n == 1) {return 1;}
-    for (int i = 2; i <= n; ++i)
+    for (int i = 0; i < n; ++i)
     {
     	sum    = first + second;
     	first  = second;
@@ -24,27 +25,34 @@ unsigned long long int iter_fib(unsigned long long int n)
 }
 
 int main(int argc, char *argv[]){
-   const char *filename = argv[3];
-   FILE *file = fopen(filename, "r");
-   if (filename == NULL)
-   {
-   	file = fopen(filename, "w");
-   	if (file == NULL) 
-   	{
-   		printf("File not found\n");
-   		return 0;
-   	}
-   }
-   char line[atoi(argv[1])];
-   unsigned long long int get_num = atoi(fgets(line, sizeof(line), file));
-   if (!strcmp(argv[2], "i"))
-   {
-   	printf("%llu\n", iter_fib(get_num + 3));
-   }
-   else if (!strcmp(argv[2], "r"))
-   {
-   	printf("%llu\n", recur_fib(get_num + 4));
-   }
-   fclose(file);
-   return 0;
+    if (argc != 4) {
+        perror("Provide 4 arguments: ./<filename> <num> <i/r> <filename.txt>\n");
+        exit(1);
+    }
+
+    const char *filename = argv[3];
+    FILE *file = fopen(filename, "r");
+    if (filename == NULL) {
+        perror("File not found\n");
+        exit(1);
+    }
+
+    uint64_t file_num;
+    char line[1024];
+    uint64_t get_num = atoi(argv[1]);
+
+    fscanf(file, "%ld", &file_num);
+    uint64_t sum_of_N = get_num + file_num;
+    uint64_t get_file_num = (uint64_t)fgets(line, sizeof(line), file);
+
+    if (!strcmp(argv[2], "i")) {
+        printf("%lu\n", iter_fib(sum_of_N - 2));
+    } else if (!strcmp(argv[2], "r")) {
+        printf("%lu\n", recur_fib(sum_of_N - 1));
+    } else {
+        perror("Choose between i or r in argv[2]\n");
+        exit(1);
+    }
+    fclose(file);
+    return 0;
 }
