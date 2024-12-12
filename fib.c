@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint64_t recur_fib(uint64_t num) {
+uint64_t fib_r(uint64_t num) {
     if (num == 0)
         return 0;
     if (num == 1)
         return 1;
-    return recur_fib(num - 1) + recur_fib(num - 2);
+    return fib_r(num - 1) + fib_r(num - 2);
 }
 
-uint64_t iter_fib(uint64_t num) {
+uint64_t fib_i(uint64_t num) {
     uint64_t first = 0, second = 1, sum = 0;
     if (num == 0)
         return 0;
@@ -47,9 +47,9 @@ int main(int argc, char *argv[]) {
     uint64_t sum = get_num + file_num;
 
     if (!strcmp(argv[2], "i")) {
-        printf("%lu\n", iter_fib(sum - 2));
+        printf("%lu\n", fib_i(sum - 2));
     } else if (!strcmp(argv[2], "r")) {
-        printf("%lu\n", recur_fib(sum - 1));
+        printf("%lu\n", fib_r(sum - 1));
     } else {
         perror("Choose between i or r in argv[2]\n");
         exit(1);
